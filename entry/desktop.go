@@ -47,7 +47,7 @@ func Entry() {
 	}
 
 	for g.Running() {
-		rnd.Clear()
+		//rnd.Clear()
 
 		if err := g.Update(); err != nil {
 			log.Panicln(err)
@@ -56,7 +56,7 @@ func Entry() {
 		_, _, fps := g.Timing()
 		rnd.SetWindowTitle(fmt.Sprintf("Drive - %d fps", fps))
 
-		if err := g.Render(); err != nil {
+		if err := g.Render(rnd.BackBuffer()); err != nil {
 			log.Panicln(err)
 		}
 

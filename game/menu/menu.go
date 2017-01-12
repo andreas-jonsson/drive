@@ -5,7 +5,11 @@
 
 package menu
 
-import "github.com/andreas-jonsson/drive/game"
+import (
+	"image"
+
+	"github.com/andreas-jonsson/drive/game"
+)
 
 type menuState struct {
 }
@@ -31,6 +35,6 @@ func (s *menuState) Update(gctl game.GameControl) error {
 	return nil
 }
 
-func (s *menuState) Render() error {
+func (s *menuState) Render(backBuffer *image.Paletted) error {
 	return nil
 }

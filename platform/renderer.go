@@ -5,10 +5,17 @@
 
 package platform
 
+import (
+	"image"
+	"image/color"
+)
+
 type Renderer interface {
 	Clear()
 	Present()
 	Shutdown()
+	BackBuffer() *image.Paletted
+	SetPalette(pal color.Palette)
 	ToggleFullscreen()
 	SetWindowTitle(title string)
 }

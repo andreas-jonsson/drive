@@ -7,6 +7,7 @@ package game
 
 import (
 	"fmt"
+	"image"
 	"log"
 	"time"
 
@@ -19,7 +20,7 @@ type (
 		Enter(from GameState, args ...interface{}) error
 		Exit(to GameState) error
 		Update(gctl GameControl) error
-		Render() error
+		Render(backBuffer *image.Paletted) error
 	}
 
 	GameControl interface {
@@ -137,8 +138,8 @@ func (g *Game) Update() error {
 	return nil
 }
 
-func (g *Game) Render() error {
-	if err := g.currentState.Render(); err != nil {
+func (g *Game) Render(backBuffer *image.Paletted) error {
+	if err := g.currentState.Render(backBuffer); err != nil {
 		return err
 	}
 	return nil
