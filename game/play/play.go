@@ -58,38 +58,13 @@ func (s *playState) Update(gctl game.GameControl) error {
 	return nil
 }
 
-func newShader(target *image.Paletted, texture *image.Paletted) rasterizer.UVPixelShader {
-	textureSize := texture.Bounds().Max
-	maxX := textureSize.X - 1
-	maxY := textureSize.Y - 1
-
-	return func(x, y int, u, v float32) {
-		tx := int(u * float32(maxX))
-		ty := int(v * float32(maxY))
-
-		if tx > maxX {
-			tx = maxX
-		} else if tx < 0 {
-			tx = 0
-		}
-
-		if ty > maxY {
-			ty = maxY
-		} else if ty < 0 {
-			ty = 0
-		}
-
-		target.SetColorIndex(x, y, texture.ColorIndexAt(tx, ty))
-	}
-}
-
 func (s *playState) Render(backBuffer *image.Paletted) error {
 
-	ps := newShader(backBuffer, s.testImage)
-	rasterizer.RasterizeUV(ps, 10, 10, 500, 10, 10, 500, 0, 0, 1, 0, 0, 1)
+	//ps := NewDefaultUVShader(backBuffer, s.testImage)
+	//rasterizer.RasterizeUV(ps, 10, 10, 500, 10, 10, 500, 0, 0, 1, 0, 0, 1)
 
-	//ps := rasterizer.NewDefaultFlatShader(backBuffer)
-	//rasterizer.RasterizeFlat(ps, 10, 10, 500, 10, 10, 500, 10)
+	ps := rasterizer.NewDefaultFlatShader(backBuffer)
+	rasterizer.RasterizeFlat(ps, 10, 10, 500, 10, 10, 500, 10)
 
 	return nil
 }
